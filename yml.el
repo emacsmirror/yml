@@ -33,9 +33,9 @@
 (require 'yml-module-install)
 (require 'cl-lib)
 
-(declare-function yml-core--parse-string "yml-core"
-                  (string object-type object-key-type array-type null-object false-object parse-all))
-(declare-function yml-core--serialize "yml-core" (object null-object false-object))
+(declare-function yml-core--parse-string "ext:yml-core"
+                  (string object-type object-key-type array-type null-object false-object parse-all) t)
+(declare-function yml-core--serialize "ext:yml-core" (object null-object false-object) t)
 
 ;;;; Public
 

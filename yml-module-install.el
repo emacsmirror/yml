@@ -65,7 +65,7 @@ Automatically loaded on any yml- function call using
 Bump together with Rust's API version for incompatible interface
 changes.")
 
-(declare-function yml-core--api-version "yml-core" ())
+(declare-function yml-core--api-version "ext:yml-core" () t)
 
 (define-error 'yml-module-unavailable "yml native module unavailable")
 (define-error 'yml-module-incompatible "yml native module incompatible")
