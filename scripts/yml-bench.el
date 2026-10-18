@@ -7,7 +7,7 @@
 
 ;; Build yml-core, then run:
 ;;
-;; emacs --batch -Q -L . -l benchmarks/yml-bench.el \
+;; emacs --batch -Q -L . -l scripts/yml-bench.el \
 ;;   --eval '(yml-bench-run 1)'
 ;;
 ;; Inputs and dependency repositories are cached in separate temporary folders.

@@ -42,6 +42,6 @@ release:
 	printf '%s\n' "$$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$$' || { echo 'Expected version X.Y.Z' >&2; exit 1; }; \
 	if git show-ref --verify --quiet "refs/tags/v$$version"; then echo "Tag v$$version already exists" >&2; exit 1; fi; \
 	export YML_RELEASE_VERSION="$$version"; \
-	$(EMACS) --batch -Q -l scripts/release.el; \
+	$(EMACS) --batch -Q -l scripts/yml-release.el; \
 	git commit -a -m "Release v$$version"; \
 	git tag -a "v$$version" --edit -m "Release v$$version"

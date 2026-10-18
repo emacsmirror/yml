@@ -166,7 +166,7 @@ it from the benchmarks.
 To reproduce (dependencies and inputs are cached in temporary directories):
 
 ```sh
-emacs --batch -Q -L . -l benchmarks/yml-bench.el --eval '(yml-bench-run 15)'
+emacs --batch -Q -L . -l scripts/yml-bench.el --eval '(yml-bench-run 15)'
 ```
 
 
