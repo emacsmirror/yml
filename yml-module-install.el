@@ -200,7 +200,8 @@ If a module is already loaded, restart Emacs to use the replacement."
   (interactive)
   (yml--check-module-support)
   (let* ((target (yml--release-target))
-         (asset (concat yml--module-name "-" target module-file-suffix))
+         (asset (concat yml--module-name "-" target
+                        (if (eq system-type 'windows-nt) ".dll" ".so")))
          (base (format "%s/releases/download/v%s/"
                        yml--repository-url yml--module-version))
          (destination (yml--installed-module))
