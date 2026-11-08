@@ -1,4 +1,4 @@
-;;; yml.el --- Fast YAML parser  -*- lexical-binding: t; -*-
+;;; yml.el --- Fast YAML parser (dynamic module)  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026 by Isa Mert Gurbuz
 
