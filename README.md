@@ -97,7 +97,12 @@ You can inspect the errors this way:
 After installing the package, do `M-x yml-install-module`.  You'll be
 asked if you want to download a prebuilt library or if you want to
 compile the local source tree yourself. Running this command again
-offers reinstallation, even if a native module is already loaded.
+reuses and loads the installed module without prompting or downloading
+it again.  If loading or API validation fails, it offers the same
+download/build/cancel choices as a first-time installation.  Use `M-x
+yml-download-module` or `M-x yml-build-module` to force a
+reinstallation. If a module was already loaded, restart Emacs to use
+its replacement.
 
 ### Manual native module installation
 

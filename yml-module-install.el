@@ -300,23 +300,33 @@ If a module is loaded, restart Emacs after building."
 
 ;;;###autoload
 (defun yml-install-module ()
-  "Install or reinstall a module by downloading or building locally.
-An already loaded module is not replaced in this process; restart Emacs
-after installation to use its replacement."
+  "Ensure a working native module is installed and loaded.
+Reuse an already loaded or installed module without prompting.  If
+loading or API validation fails, or no module is installed, offer to
+download or build one.
+
+To force a reinstall, use `yml-download-module' or `yml-build-module'.
+An already loaded module cannot be replaced in this process; restart
+Emacs if a replacement is installed."
   (interactive)
   (yml--check-module-support)
-  (when (featurep 'yml-core)
-    (message "A yml module is already loaded. Reinstalling takes effect after restarting Emacs"))
-  (pcase (car (read-multiple-choice
-               (if (featurep 'yml-core)
-                   "Reinstall yml module (restart required)?"
-                 "Install yml native module?")
-               '((?d "download" "Download a verified prebuilt release")
-                 (?b "build" "Build local sources with Cargo")
-                 (?c "cancel" "Do not install"))))
-    (?d (yml-download-module))
-    (?b (yml-build-module))
-    (?c (message "yml installation cancelled"))))
+  (if (and (or (featurep 'yml-core)
+               (file-exists-p (yml--installed-module)))
+           (condition-case err
+               (progn (yml--ensure-module) t)
+             (error
+              (message "Cannot use installed yml module: %s"
+                       (error-message-string err))
+              nil)))
+      (message "yml module already installed and loaded")
+    (pcase (car (read-multiple-choice
+                 "Install yml native module?"
+                 '((?d "download" "Download a verified prebuilt release")
+                   (?b "build" "Build local sources with Cargo")
+                   (?c "cancel" "Do not install"))))
+      (?d (yml-download-module))
+      (?b (yml-build-module))
+      (?c (message "yml installation cancelled")))))
 
 (provide 'yml-module-install)
 
