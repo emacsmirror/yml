@@ -112,15 +112,30 @@ managers: [elpaca](https://github.com/progfolio/elpaca),
 
 ### Automatic native module installation
 
-After installing the package, do `M-x yml-install-module`.  You'll be
-asked if you want to download a prebuilt library or if you want to
-compile the local source tree yourself. Running this command again
-reuses and loads the installed module without prompting or downloading
-it again.  If loading or API validation fails, it offers the same
+The `(yml-install-module t)` part in the config handles the native
+module installation. If it's already built/downloaded, then it does
+nothing. If it's missing, you'll be asked if you want to download a
+prebuilt library or if you want to compile the local source tree
+yourself. You can also do `M-x yml-install-module` manually.
+
+If loading or API validation fails, it offers the same
 download/build/cancel choices as a first-time installation.  Use `M-x
 yml-download-module` or `M-x yml-build-module` to force a
 reinstallation. If a module was already loaded, restart Emacs to use
 its replacement.
+
+### For downstream packages
+
+Declare `yml` in your package's `Package-Requires`, require it
+normally, and use its public parsing/serialization functions. Do not
+call `yml-install-module` from library code: installation should be an
+explicit user choice.
+
+Recommend that your users add the startup check above to their
+configuration, or run `M-x yml-install-module` manually, after
+installing your package. The startup check silently reuses a working
+module and offers download/build choices when setup is needed (which
+should be quite rare).
 
 ### Manual native module installation
 

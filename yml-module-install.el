@@ -299,26 +299,29 @@ If a module is loaded, restart Emacs after building."
      'compilation-mode (lambda (_) yml--build-buffer-name))))
 
 ;;;###autoload
-(defun yml-install-module ()
+(defun yml-install-module (&optional silent)
   "Ensure a working native module is installed and loaded.
 Reuse an already loaded or installed module without prompting.  If
 loading or API validation fails, or no module is installed, offer to
 download or build one.
+
+If SILENT is non-nil, do not report success when an existing module
+can be reused.  Prompts, installation progress, and failures are not
+silenced.  Use (yml-install-module t) for quiet startup checks.
 
 To force a reinstall, use `yml-download-module' or `yml-build-module'.
 An already loaded module cannot be replaced in this process; restart
 Emacs if a replacement is installed."
   (interactive)
   (yml--check-module-support)
-  (if (and (or (featurep 'yml-core)
-               (file-exists-p (yml--installed-module)))
-           (condition-case err
-               (progn (yml--ensure-module) t)
-             (error
-              (message "Cannot use installed yml module: %s"
-                       (error-message-string err))
-              nil)))
-      (message "yml module already installed and loaded")
+  (if (condition-case err
+          (progn (yml--ensure-module) t)
+        (error
+         (message "Cannot use installed yml module: %s"
+                  (error-message-string err))
+         nil))
+      (unless silent
+        (message "yml module already installed and loaded"))
     (pcase (car (read-multiple-choice
                  "Install yml native module?"
                  '((?d "download" "Download a verified prebuilt release")
