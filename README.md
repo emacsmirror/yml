@@ -1,3 +1,6 @@
+[![MELPA Stable](https://stable.melpa.org/packages/yml-badge.svg)](https://stable.melpa.org/#/yml)
+[![MELPA](https://melpa.org/packages/yml-badge.svg)](https://melpa.org/#/yml)
+
 # yml.el -- Fastest YAML parser for Emacs
 
 **yml.el** is a fast YAML parser for Emacs Lisp. It is a simple
@@ -77,19 +80,34 @@ You can inspect the errors this way:
 
 ## Installation
 
+yml is available through [MELPA](https://melpa.org/#/yml). If you have
+it set up already, just do `M-x package-install yml` and you are good
+to go. Otherwise please see [MELPA getting
+started](https://melpa.org/#/getting-started) page to learn how you
+can install packages through MELPA or see the following installation
+options.
+
+Another way to install `yml.el` would be using one of the package
+managers: [elpaca](https://github.com/progfolio/elpaca),
+[straight](https://github.com/radian-software/straight.el),
+[quelpa](https://github.com/quelpa/quelpa-use-package) or
+[vc](https://www.gnu.org/software/emacs/manual/html_node/use-package/Install-package.html):
+
 ```elisp
 (use-package yml
-  ;; elpaca
+  ;; **elpaca**
   :ensure (:host github :repo "isamert/yml.el"
            :files ("*.el" "Cargo.toml" "Cargo.lock" "src"))
 
-  ;; vc
+  ;; **vc**
   ;; :vc (:url "https://github.com/isamert/yml.el")
 
-  ;; straight.el
+  ;; **straight.el**
   ;; :straight (:host github :repo "isamert/yml.el"
   ;;            :files ("*.el" "Cargo.toml" "Cargo.lock" "src"))
-  )
+
+  :config
+  (yml-install-module t))
 ```
 
 ### Automatic native module installation
